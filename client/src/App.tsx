@@ -8,13 +8,13 @@ import User from './components/User'
 
 const ENDPOINT = 'http://localhost:3000/'
 
-type userData = {
+type UserData = {
   username: string
   message: string
   timestamp?: number
 }
 
-export type user = {
+export type User = {
   id: string
   username: string
 }
@@ -28,12 +28,11 @@ export type receivedData = {
 
 function App() {
   const [messages, setMessages] = useState<receivedData[]>([])
-  const [data, setData] = useState<userData>({
+  const [data, setData] = useState<UserData>({
     username: '',
     message: '',
   })
-  const [users, setUsers] = useState<user[]>([])
-  const [username, setUsername] = useState<string>('')
+  const [users, setUsers] = useState<User[]>([])
   const [socket, setSocket] = useState<SocketIoClient.Socket | null>(null)
 
   useEffect(() => {

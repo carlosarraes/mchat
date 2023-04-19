@@ -1,7 +1,7 @@
-import type { user } from '../App'
+import type { User } from '../App'
 
 type UserBoxProps = {
-  users: user[]
+  users: User[]
 }
 
 const UserBox = ({ users }: UserBoxProps) => {
