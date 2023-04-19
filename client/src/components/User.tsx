@@ -6,11 +6,11 @@ type UserProps = {
 
 const User = ({ username, handleChange, handleSaveUsername }: UserProps) => {
   return (
-    <section className="flex gap-2 flex-shrink-0 justify-center p-2">
+    <section className="flex w-full gap-2 flex-shrink-0 justify-center p-2">
       <input
-        className="w-1/2 h-10 px-2 border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+        className="w-3/4 h-10 px-2 border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         type="text"
-        placeholder="Type your username here..."
+        placeholder="Type your username"
         value={username}
         name="username"
         onChange={handleChange}
@@ -19,11 +19,11 @@ const User = ({ username, handleChange, handleSaveUsername }: UserProps) => {
         }}
       />
       <button
-        className="w-1/4 h-10 px-2 border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+        className="w-1/4 h-10 px-2 border-2 border-gray-300 rounded-md focus:outline-none truncate focus:border-blue-500"
         onClick={handleSaveUsername}
         type="button"
       >
-        Save User
+        Save
       </button>
     </section>
   )

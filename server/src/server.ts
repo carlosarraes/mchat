@@ -7,6 +7,11 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { messageModel } from './models/message.model'
 import { messageRoutes } from './routes'
+import utc from 'dayjs/plugin/utc.js'
+import timezone from 'dayjs/plugin/timezone.js'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 dotenv.config()
 const port = process.env.PORT || 3000
@@ -21,7 +26,7 @@ app.use('/messages', messageRoutes)
 
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:5173', 'https://mchat-ca.vercel.app'],
+    origin: 'https://mchat-ca.vercel.app',
     methods: ['GET', 'POST'],
     allowedHeaders: ['my-custom-header'],
     credentials: true,
@@ -73,7 +78,7 @@ io.on('connection', (socket: Socket) => {
   })
 
   socket.on('send_message', (data: Data) => {
-    const timestamp = dayjs()
+    const timestamp = dayjs().tz('America/Sao_Paulo')
     data.timestamp = timestamp.format('DD/MM HH:mm')
 
     messageModel.insert(data.message, data.username, timestamp.toDate())

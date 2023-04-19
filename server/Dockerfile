@@ -6,6 +6,7 @@ COPY pnpm-lock.yaml ./
 RUN pnpm install
 COPY src ./src
 COPY tsconfig.json ./
+COPY .env ./
 RUN pnpm run build
 RUN pnpm install --prod
 EXPOSE 3000

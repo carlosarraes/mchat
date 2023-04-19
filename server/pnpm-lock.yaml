@@ -13,6 +13,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.7
     version: 1.11.7
+  dayjs-plugin-utc:
+    specifier: ^0.1.2
+    version: 0.1.2
   dotenv:
     specifier: ^16.0.3
     version: 16.0.3
@@ -389,6 +392,10 @@ packages:
       es5-ext: 0.10.62
       type: 1.2.0
     dev: true
+
+  /dayjs-plugin-utc@0.1.2:
+    resolution: {integrity: sha512-ExERH5o3oo6jFOdkvMP3gytTCQ9Ksi5PtylclJWghr7k7m3o2U5QrwtdiJkOxLOH4ghr0EKhpqGefzGz1VvVJg==}
+    dev: false
 
   /dayjs@1.11.7:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
