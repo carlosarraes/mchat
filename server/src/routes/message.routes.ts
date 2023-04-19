@@ -3,6 +3,6 @@ import { messageController } from '../controllers'
 
 const router = express.Router()
 
-router.get('/', messageController.getAll)
+router.get('/', messageController.find)
 
 export default router
