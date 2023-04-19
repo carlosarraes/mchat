@@ -58,6 +58,10 @@ io.on('connection', (socket: Socket) => {
     io.emit('update_user_list', Array.from(connectedUsers))
   })
 
+  socket.on('typing', (username: string) => {
+    socket.broadcast.emit('typing', username)
+  })
+
   socket.on('send_message', (data: Data) => {
     console.log(data)
     io.emit('receive_message', data)
