@@ -6,7 +6,7 @@ import MsgBox from './components/MsgBox'
 import UserBox from './components/UserBox'
 import User from './components/User'
 
-const ENDPOINT = 'http://localhost:3000/'
+const ENDPOINT = 'https://exchat-4wgfen3n5q-rj.a.run.app/'
 
 type UserData = {
   username: string
