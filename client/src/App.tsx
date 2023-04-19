@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import type * as SocketIoClient from 'socket.io-client'
 import ChatBox from './components/ChatBox'
+import MsgBox from './components/MsgBox'
 import User from './components/User'
+
 const ENDPOINT = 'http://localhost:3000/'
+
 export type user = {
   id: string
   username: string
@@ -43,6 +46,7 @@ function App() {
         setUsers((prevUsers) => [...prevUsers, user])
       })
     }
+
     return () => {
       if (socket) {
         socket.off('receive_message')
@@ -50,6 +54,17 @@ function App() {
       }
     }
   }, [socket])
+
+  const handleClick = () => {
+    if (socket) socket.emit('send_message', data)
+    setData((prevData) => ({ ...prevData, message: '' }))
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setData((prevData) => ({ ...prevData, [name]: value }))
+  }
+
   const handleSaveUsername = () => {
     setUsername(data.username)
     if (socket) socket.emit('new_user', data.username)
@@ -69,6 +84,7 @@ function App() {
           <MsgBox handleClick={handleClick} handleChange={handleChange} message={data.message} />
         )}
       </section>
+      <UserBox users={users} />
     </main>
   )
 }
