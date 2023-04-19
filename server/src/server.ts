@@ -3,8 +3,10 @@ import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
 import morgan from 'morgan'
 import dayjs from 'dayjs'
-import { messageModel } from './models/message.model'
 import dotenv from 'dotenv'
+import cors from 'cors'
+import { messageModel } from './models/message.model'
+import { messageRoutes } from './routes'
 
 dotenv.config()
 const port = process.env.PORT || 3000
@@ -13,6 +15,9 @@ const server = createServer(app)
 
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(cors())
+
+app.use('/messages', messageRoutes)
 
 const io = new Server(server, {
   cors: {
@@ -78,5 +83,5 @@ io.on('connection', (socket: Socket) => {
 })
 
 server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`)
+  console.log(`Server running at PORT: ${port}`)
 })
