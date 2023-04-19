@@ -3,9 +3,16 @@ import socketIOClient from 'socket.io-client'
 import type * as SocketIoClient from 'socket.io-client'
 import ChatBox from './components/ChatBox'
 import MsgBox from './components/MsgBox'
+import UserBox from './components/UserBox'
 import User from './components/User'
 
 const ENDPOINT = 'http://localhost:3000/'
+
+type userData = {
+  username: string
+  message: string
+  timestamp?: number
+}
 
 export type user = {
   id: string
@@ -25,6 +32,7 @@ function App() {
     username: '',
     message: '',
   })
+  const [users, setUsers] = useState<user[]>([])
   const [username, setUsername] = useState<string>('')
   const [socket, setSocket] = useState<SocketIoClient.Socket | null>(null)
 
