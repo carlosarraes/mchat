@@ -19,12 +19,34 @@ const io = new Server(server, {
   },
 })
 
+type data = {
+  name: string
+  message: string
+}
+
 io.on('connection', (socket: Socket) => {
   console.log(`User connected: ${socket.id}`)
+
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`)
+    io.emit('user_disconnected', socket.id)
+  })
+
+  socket.on('new_user', (username: string) => {
+    const user = {
+      id: socket.id,
+      username,
+    }
+    console.log(`New user: ${username} `, user)
+    io.emit('receive_users', user)
+  })
+
+  socket.on('send_message', (data: data) => {
+    console.log(data)
+    io.emit('receive_message', data)
   })
 })
+
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })
