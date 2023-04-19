@@ -11,7 +11,6 @@ const ENDPOINT = 'http://localhost:3000/'
 type UserData = {
   username: string
   message: string
-  timestamp?: number
 }
 
 export type User = {
@@ -23,7 +22,7 @@ export type receivedData = {
   id: string
   username: string
   message: string
-  timestamp: number
+  timestamp: string
 }
 
 function App() {
