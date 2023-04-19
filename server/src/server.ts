@@ -2,6 +2,7 @@ import express from 'express'
 import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
 import morgan from 'morgan'
+import dayjs from 'dayjs'
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -22,6 +23,8 @@ const io = new Server(server, {
 type Data = {
   name: string
   message: string
+  timestamp: string
+  sent: dayjs.Dayjs
 }
 
 type User = {
@@ -63,6 +66,11 @@ io.on('connection', (socket: Socket) => {
   })
 
   socket.on('send_message', (data: Data) => {
+    const now = dayjs()
+    const timestamp = dayjs().format('DD/MM HH:mm')
+    data.timestamp = timestamp
+    data.sent = now
+
     io.emit('receive_message', data)
   })
 })
