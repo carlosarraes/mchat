@@ -55,13 +55,10 @@ function App() {
       })
 
       socket.on('update_user_list', (user: User[]) => {
-        console.log(user)
         setUsers(user)
       })
 
       socket.on('typing', (user: string) => {
-        console.log(user)
-
         if (typingTimeouts.current.has(user)) {
           clearTimeout(typingTimeouts.current.get(user))
         }

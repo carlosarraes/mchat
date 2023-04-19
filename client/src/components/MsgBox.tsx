@@ -8,9 +8,7 @@ type MsgBoxProps = {
 }
 
 const MsgBox = ({ handleClick, handleChange, message, typingUsers }: MsgBoxProps) => {
-  console.log(typingUsers)
   const typingUsersArray = Array.from(typingUsers)
-  console.log(typingUsersArray)
   const typingUsersNames = typingUsersArray.join(', ')
 
   return (
