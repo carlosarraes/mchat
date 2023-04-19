@@ -5,6 +5,7 @@ import ChatBox from './components/ChatBox'
 import MsgBox from './components/MsgBox'
 import UserBox from './components/UserBox'
 import User from './components/User'
+import Footer from './components/Footer'
 
 const ENDPOINT = 'https://exchat-4wgfen3n5q-rj.a.run.app/'
 
@@ -108,25 +109,28 @@ function App() {
   }
 
   return (
-    <main className="bg-white flex w-11/12 sm:w-10/12 justify-center font-mono h-screen shadow-md">
-      <section className="flex flex-col w-full sm:w-3/4 h-full">
-        <ChatBox messages={messages} />
-        {!userSaved ? (
-          <User
-            username={data.username}
-            handleChange={handleChange}
-            handleSaveUsername={handleSaveUsername}
-          />
-        ) : (
-          <MsgBox
-            handleClick={handleClick}
-            handleChange={handleChange}
-            message={data.message}
-            typingUsers={typingUsers.current}
-          />
-        )}
+    <main className="bg-white flex flex-col w-11/12 sm:w-10/12 justify-center font-mono h-screen shadow-md">
+      <section className="flex w-full h-full">
+        <section className="flex flex-col w-full sm:w-3/4 h-full">
+          <ChatBox messages={messages} />
+          {!userSaved ? (
+            <User
+              username={data.username}
+              handleChange={handleChange}
+              handleSaveUsername={handleSaveUsername}
+            />
+          ) : (
+            <MsgBox
+              handleClick={handleClick}
+              handleChange={handleChange}
+              message={data.message}
+              typingUsers={typingUsers.current}
+            />
+          )}
+        </section>
+        <UserBox users={users} />
       </section>
-      <UserBox users={users} />
+      <Footer />
     </main>
   )
 }
