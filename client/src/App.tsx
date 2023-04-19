@@ -40,8 +40,17 @@ function App() {
   const typingTimeouts = useRef(new Map())
 
   useEffect(() => {
+    const getMsgs = async () => {
+      const response = await fetch(`${ENDPOINT}messages`)
+      const data = await response.json()
+
+      console.log(data)
+
+      setMessages(data)
+    }
     setSocket(socketIOClient(ENDPOINT))
 
+    getMsgs()
     return () => {
       if (socket) socket.disconnect()
     }
