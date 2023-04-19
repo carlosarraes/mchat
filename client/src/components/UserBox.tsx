@@ -6,7 +6,7 @@ type UserBoxProps = {
 
 const UserBox = ({ users }: UserBoxProps) => {
   return (
-    <section className="w-1/4 p-2">
+    <section className="hidden sm:block w-1/4 p-2">
       <h2 className="text-2xl font-bold">Users</h2>
       <ul className="flex flex-col gap-2">
         {users.map(({ id, username }) => (

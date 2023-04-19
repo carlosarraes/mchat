@@ -110,8 +110,8 @@ function App() {
   }
 
   return (
-    <main className="bg-white flex w-8/12 justify-center font-mono h-screen shadow-md">
-      <section className="flex flex-col w-3/4 h-full">
+    <main className="bg-white flex w-11/12 sm:w-10/12 justify-center font-mono h-screen shadow-md">
+      <section className="flex flex-col w-full sm:w-3/4 h-full">
         <ChatBox messages={messages} />
         {!userSaved ? (
           <User

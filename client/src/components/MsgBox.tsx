@@ -24,7 +24,7 @@ const MsgBox = ({ handleClick, handleChange, message, typingUsers }: MsgBoxProps
         <input
           className="w-full h-10 px-2 border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           type="text"
-          placeholder="Type your message here..."
+          placeholder="Type your message"
           name="message"
           value={message}
           onChange={handleChange}
