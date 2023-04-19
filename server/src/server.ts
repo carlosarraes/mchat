@@ -3,7 +3,10 @@ import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
 import morgan from 'morgan'
 import dayjs from 'dayjs'
+import { messageModel } from './models/message.model'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)
@@ -21,7 +24,7 @@ const io = new Server(server, {
 })
 
 type Data = {
-  name: string
+  username: string
   message: string
   timestamp: string
 }
@@ -65,8 +68,10 @@ io.on('connection', (socket: Socket) => {
   })
 
   socket.on('send_message', (data: Data) => {
-    const timestamp = dayjs().format('DD/MM HH:mm')
-    data.timestamp = timestamp
+    const timestamp = dayjs()
+    data.timestamp = timestamp.format('DD/MM HH:mm')
+
+    messageModel.insert(data.message, data.username, timestamp.toDate())
 
     io.emit('receive_message', data)
   })
