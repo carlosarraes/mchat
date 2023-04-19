@@ -19,17 +19,32 @@ const io = new Server(server, {
   },
 })
 
-type data = {
+type Data = {
   name: string
   message: string
 }
+
+type User = {
+  id: string
+  username: string
+}
+
+const connectedUsers: Set<User> = new Set()
 
 io.on('connection', (socket: Socket) => {
   console.log(`User connected: ${socket.id}`)
 
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`)
-    io.emit('user_disconnected', socket.id)
+
+    for (const user of connectedUsers) {
+      if (user.id === socket.id) {
+        connectedUsers.delete(user)
+        break
+      }
+    }
+
+    io.emit('update_user_list', Array.from(connectedUsers))
   })
 
   socket.on('new_user', (username: string) => {
@@ -37,11 +52,13 @@ io.on('connection', (socket: Socket) => {
       id: socket.id,
       username,
     }
+    connectedUsers.add(user)
     console.log(`New user: ${username} `, user)
-    io.emit('receive_users', user)
+
+    io.emit('update_user_list', Array.from(connectedUsers))
   })
 
-  socket.on('send_message', (data: data) => {
+  socket.on('send_message', (data: Data) => {
     console.log(data)
     io.emit('receive_message', data)
   })
