@@ -3,13 +3,21 @@ import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
 import morgan from 'morgan'
 import dayjs from 'dayjs'
+import dotenv from 'dotenv'
+import cors from 'cors'
+import { messageModel } from './models/message.model'
+import { messageRoutes } from './routes'
 
+dotenv.config()
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)
 
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(cors())
+
+app.use('/messages', messageRoutes)
 
 const io = new Server(server, {
   cors: {
@@ -21,7 +29,7 @@ const io = new Server(server, {
 })
 
 type Data = {
-  name: string
+  username: string
   message: string
   timestamp: string
 }
@@ -65,13 +73,15 @@ io.on('connection', (socket: Socket) => {
   })
 
   socket.on('send_message', (data: Data) => {
-    const timestamp = dayjs().format('DD/MM HH:mm')
-    data.timestamp = timestamp
+    const timestamp = dayjs()
+    data.timestamp = timestamp.format('DD/MM HH:mm')
+
+    messageModel.insert(data.message, data.username, timestamp.toDate())
 
     io.emit('receive_message', data)
   })
 })
 
 server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`)
+  console.log(`Server running at PORT: ${port}`)
 })
