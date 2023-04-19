@@ -44,8 +44,6 @@ function App() {
       const response = await fetch(`${ENDPOINT}messages`)
       const data = await response.json()
 
-      console.log(data)
-
       setMessages(data)
     }
     setSocket(socketIOClient(ENDPOINT))
